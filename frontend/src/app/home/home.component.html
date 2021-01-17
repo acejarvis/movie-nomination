@@ -1,1 +1,87 @@
-<p>home works!</p>
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <button mat-icon-button (click)="sidenav.toggle()">
+            <mat-icon>menu</mat-icon>
+        </button>
+        Movie Nomination
+    </mat-toolbar-row>
+    <mat-toolbar-row *ngIf="isAddNewDisabled">
+        <div style="text-align: center;">
+            You have nominated all the 5 movies!
+        </div>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-sidenav-container class="example-container" [hasBackdrop]="true">
+    <mat-sidenav position="end" #sidenav>
+        <div>
+            Your Nomination List
+        </div>
+        <div style="overflow:auto">
+            <div *ngFor="let movie of nominationList">
+                <mat-card>
+    
+                    <mat-card-content style="padding-bottom: 1rem;">
+                        <img [src]="movie.Poster" width="100%">
+                    </mat-card-content>
+                    <mat-card-footer style="padding-bottom: 1rem; padding-left: 1rem;">
+                        <div> Title: {{ movie.Title }}</div>
+                        <div> Year: {{ movie.Year }}</div>
+                        <div> IMDB ID: {{ movie.imdbID }}</div>
+    
+                        <button mat-button (click)="removeMovie(movie)" [disabled]="nominationList.indexOf(movie) === -1">
+                            Remove From List </button>
+                    </mat-card-footer>
+                </mat-card>
+    
+            </div>
+        </div>
+        <button mat-button (click)="saveList()"> Save</button>
+        
+
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <mat-toolbar>
+            <mat-toolbar-row>
+
+                <mat-form-field style="width: 100%" floatLabel='never'>
+                    <input matInput [(ngModel)]="searchText" placeholder="Search" autocomplete="off"
+                        (keyup.enter)="searchMovie()">
+                </mat-form-field>
+                <button mat-button (click)="searchMovie()">
+                    <mat-icon>search</mat-icon>
+                </button>
+                <button mat-button (click)="sidenav.toggle()">
+                    <mat-icon>stars</mat-icon>
+                </button>
+            </mat-toolbar-row>
+
+
+        </mat-toolbar>
+        <div fxLayout="row wrap" fxLayoutAlign="start stretch" fxLayoutGap="10px">
+            <div *ngFor="let movie of searchResult">
+                <mat-card class="movie-card">
+                    <div class="bg-image"></div>
+
+                    <mat-card-content>
+                        <img [src]="movie.Poster" width="100%">
+                    </mat-card-content>
+                    <mat-card-footer style="padding-bottom: 1rem; padding-left: 1rem;">
+                        <div> Title: {{ movie.Title }}</div>
+                        <div> Year: {{ movie.Year }}</div>
+                        <div> IMDB ID: {{ movie.imdbID }}</div>
+
+                        <button mat-button (click)="nominateMovie(movie)"
+                            [disabled]="nominationList.indexOf(movie) != -1 || isAddNewDisabled">
+                            Nominate </button>
+                        <!-- <button mat-button (click)="removeMovie(movie)"
+                            [disabled]="nominationList.indexOf(movie) === -1">
+                            Remove From List </button> -->
+                    </mat-card-footer>
+                </mat-card>
+
+            </div>
+        </div>
+
+    </mat-sidenav-content>
+</mat-sidenav-container>

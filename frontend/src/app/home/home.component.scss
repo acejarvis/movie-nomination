@@ -1,0 +1,19 @@
+.example-container {
+  height: calc(100vh - 64px);
+}
+
+
+mat-sidenav {
+  width: 200px;
+}
+
+.movie-card {
+  width: 200px;
+  height: 450px;
+}
+
+
+
+.movie-card:hover {
+  background-color: grayscale($color: grey);
+}
