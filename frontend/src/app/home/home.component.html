@@ -1,15 +1,10 @@
 <div *ngIf="searchResult">
 <mat-toolbar color="primary">
-    <mat-toolbar-row>
-        <button mat-icon-button (click)="sidenav.toggle()">
-            <mat-icon>menu</mat-icon>
-        </button>
+    <mat-toolbar-row fxLayout="row" fxLayoutAlign="center center">
         Movie Nomination
     </mat-toolbar-row>
-    <mat-toolbar-row *ngIf="isAddNewDisabled">
-        <div style="text-align: center;">
-            You have nominated all the 5 movies!
-        </div>
+    <mat-toolbar-row *ngIf="isAddNewDisabled" fxLayout="row" fxLayoutAlign="center center" style="background-color: white; color:black">
+            <p>You have nominated all the 5 movies!</p>
     </mat-toolbar-row>
 </mat-toolbar>
 

@@ -21,10 +21,8 @@ app.get('/movie', function (req, res) {
 });
 
 app.get('/*', (req, res) => {
-    res.sendFile(path.join(__dirname + '/dist/index.html'));
+    res.redirect('/');
 });
-
-
 
 app.listen(process.env.PORT || 3000, function () {
     console.log('proxy server listening on port 3000')
