@@ -13,7 +13,7 @@
     </mat-toolbar-row>
 </mat-toolbar>
 
-<mat-sidenav-container  class="example-container" [hasBackdrop]="true">
+<mat-sidenav-container class="example-container" [hasBackdrop]="true">
     <mat-sidenav position="end" #sidenav>
         <div>
             Your Nomination List
@@ -71,11 +71,11 @@
                         <div> IMDB ID: {{ movie.imdbID }}</div>
 
                         <button mat-button (click)="nominateMovie(movie)"
-                            [disabled]="nominationList.toString().includes(movie.Title) || isAddNewDisabled">
+                            [disabled]="nominationList.indexOf(movie) > -1 || isAddNewDisabled">
                             Nominate </button>
-                        <!-- <button mat-button (click)="removeMovie(movie)"
+                        <button mat-button (click)="removeMovie(movie)"
                             [disabled]="nominationList.indexOf(movie) === -1">
-                            Remove From List </button> -->
+                            Remove From List </button>
                     </mat-card-footer>
                 </mat-card>
 

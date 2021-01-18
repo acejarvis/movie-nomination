@@ -24,7 +24,9 @@ export class HomeComponent implements OnInit {
     if (localStorage.getItem('localNominationList')) {
       userString = localStorage.getItem('localNominationList');
     } else {
+      localStorage.setItem('localNominationList', '{}');
       userString = '{}';
+
     }
     console.log(userString);
     this.nominationList = JSON.parse(userString);

@@ -2,6 +2,7 @@ var express = require('express');
 var cors = require('cors');
 var request = require('request');
 var app = express();
+var path = require('path');
 
 
 var distDir = __dirname + "/dist/";
@@ -19,12 +20,12 @@ app.get('/movie', function (req, res) {
     }).pipe(res);
 });
 
-// app.get('/*', (req, res) => {
-//     res.sendFile(path.join(__dirname + '/dist/movie-nomination/index.html'));
-// });
+app.get('/*', (req, res) => {
+    res.sendFile(path.join(__dirname + '/dist/index.html'));
+});
 
 
 
-app.listen(3000, function () {
+app.listen(process.env.PORT || 3000, function () {
     console.log('proxy server listening on port 3000')
 });
