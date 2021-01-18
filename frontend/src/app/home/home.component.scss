@@ -1,15 +1,25 @@
-.example-container {
-  height: calc(100vh - 64px);
+.container {
+  height: calc(100vh - 128px);
+}
+
+.container-with-banner {
+  height: calc(100vh - 192px);
 }
 
 
 mat-sidenav {
-  width: 200px;
+  max-width: 350px;
 }
 
 .movie-card {
   width: 200px;
-  height: 450px;
+  min-height: 480px;
+  margin-bottom: 10px;
+}
+
+.small-movie-card {
+  width: 100px;
+  max-height: 250px;
 }
 
 

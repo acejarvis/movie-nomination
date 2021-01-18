@@ -13,7 +13,7 @@ export class HttpClientHelperService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  rootUrl = '/movie/';
+  rootUrl = ' http://localhost:3000/movie/';
 
   dashGet(query: string): Observable<any> {
     return this.http.get(this.rootUrl + '?' + query, this.httpOptions);

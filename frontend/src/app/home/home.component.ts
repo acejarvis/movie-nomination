@@ -24,8 +24,8 @@ export class HomeComponent implements OnInit {
     if (localStorage.getItem('localNominationList')) {
       userString = localStorage.getItem('localNominationList');
     } else {
-      localStorage.setItem('localNominationList', '{}');
-      userString = '{}';
+      localStorage.setItem('localNominationList', '[]');
+      userString = '[]';
 
     }
     console.log(userString);
@@ -38,23 +38,29 @@ export class HomeComponent implements OnInit {
 
   searchMovie(): any {
     this.searchService.searchMovieByTitle(this.searchText).subscribe(result => {
-      this.searchResult = result.Search;
-      console.log(this.searchResult);
+      if (result.Response === 'True') {
+        this.searchResult = result.Search;
+        this.searchResult.forEach(movie => {
+          if (movie.Poster === 'N/A') { movie.Poster = '../../assets/img/default-movie.png'; }
+        });
+      } else if (result.Response === 'False') {
+        this.snackBar.open('Movie not found!', 'Close', { duration: 1500, verticalPosition: 'top' });
+        this.searchResult = [];
+      }
     });
   }
 
   nominateMovie(movie: Movie): any {
-    if (this.nominationList.length <= 5) {
+    if (this.nominationList.length <= 5 && !JSON.stringify(this.nominationList).includes(movie.imdbID)) {
       this.nominationList.push(movie);
       console.log(this.nominationList);
     }
 
     if (this.nominationList.length >= 5) {
       this.isAddNewDisabled = true;
-      this.snackBar.open('Nomination List Full!', 'Close', { duration: 1000, verticalPosition: 'top' });
-
+      this.snackBar.open('Nomination List Full!', 'Close', { duration: 1500, verticalPosition: 'top' });
     } else {
-      this.snackBar.open('Added to the Nomination List!', 'Close', { duration: 1000, verticalPosition: 'top' });
+      this.snackBar.open('Added to the Nomination List!', 'Close', { duration: 1500, verticalPosition: 'top' });
     }
   }
   removeMovie(movie: Movie): any {
@@ -63,12 +69,14 @@ export class HomeComponent implements OnInit {
       this.nominationList.splice(removeIndex, 1);
       this.isAddNewDisabled = false;
     }
-    this.snackBar.open('Removed from the Nomination List!', 'Close', { duration: 1000, verticalPosition: 'top' });
+    this.snackBar.open('Removed from the Nomination List!', 'Close', { duration: 1500, verticalPosition: 'top' });
 
   }
 
   saveList(): any {
     localStorage.setItem('localNominationList', JSON.stringify(this.nominationList));
+    this.snackBar.open('Nomination List saved!', 'Close', { duration: 1500, verticalPosition: 'top' });
+
   }
 
 }
