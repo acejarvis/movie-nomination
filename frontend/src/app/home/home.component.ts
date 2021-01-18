@@ -1,24 +1,25 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { movies } from '../models/defaultMovies';
 import { Movie } from '../models/movie';
 import { SearchService } from '../services/search/search.service';
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  searchResult: Movie[] = [];
+  searchResult = movies;
   nominationList: Movie[] = [];
   isAddNewDisabled = false;
-  searchText = '';
+  searchText!: string;
 
   constructor(
     private searchService: SearchService,
     private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
+
     let userString: any;
     if (localStorage.getItem('localNominationList')) {
       userString = localStorage.getItem('localNominationList');

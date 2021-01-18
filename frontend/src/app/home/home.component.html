@@ -1,3 +1,4 @@
+<div *ngIf="searchResult">
 <mat-toolbar color="primary">
     <mat-toolbar-row>
         <button mat-icon-button (click)="sidenav.toggle()">
@@ -12,7 +13,7 @@
     </mat-toolbar-row>
 </mat-toolbar>
 
-<mat-sidenav-container class="example-container" [hasBackdrop]="true">
+<mat-sidenav-container  class="example-container" [hasBackdrop]="true">
     <mat-sidenav position="end" #sidenav>
         <div>
             Your Nomination List
@@ -43,9 +44,8 @@
     <mat-sidenav-content>
         <mat-toolbar>
             <mat-toolbar-row>
-
                 <mat-form-field style="width: 100%" floatLabel='never'>
-                    <input matInput [(ngModel)]="searchText" placeholder="Search" autocomplete="off"
+                    <input matInput [(ngModel)]="searchText" placeholder="Search" 
                         (keyup.enter)="searchMovie()">
                 </mat-form-field>
                 <button mat-button (click)="searchMovie()">
@@ -55,7 +55,6 @@
                     <mat-icon>stars</mat-icon>
                 </button>
             </mat-toolbar-row>
-
 
         </mat-toolbar>
         <div fxLayout="row wrap" fxLayoutAlign="start stretch" fxLayoutGap="10px">
@@ -72,7 +71,7 @@
                         <div> IMDB ID: {{ movie.imdbID }}</div>
 
                         <button mat-button (click)="nominateMovie(movie)"
-                            [disabled]="nominationList.indexOf(movie) != -1 || isAddNewDisabled">
+                            [disabled]="nominationList.toString().includes(movie.Title) || isAddNewDisabled">
                             Nominate </button>
                         <!-- <button mat-button (click)="removeMovie(movie)"
                             [disabled]="nominationList.indexOf(movie) === -1">
@@ -85,3 +84,4 @@
 
     </mat-sidenav-content>
 </mat-sidenav-container>
+</div>
